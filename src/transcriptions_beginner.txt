@@ -1,0 +1,10 @@
+Goodbye.wav, Goodbye
+Please.wav, Please
+Thank_you.wav, Thank you
+Yes.wav, Yes
+Busy.wav, Busy
+Delicious.wav, Delicious
+Famous.wav, Famous
+Happy.wav, Happy
+Pretty.wav, Pretty
+Water.wav, Water

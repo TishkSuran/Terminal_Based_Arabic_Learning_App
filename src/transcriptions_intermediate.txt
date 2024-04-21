@@ -1,0 +1,10 @@
+Favourite.wav, Favourite
+Good_morning.wav, Good morning
+I_love_you.wav, I love you
+Interesting.wav, Interesting
+No_problem.wav, No problem
+Of_course.wav, Of course
+Thank_you_very_much.wav, Thank you very much
+Thats_good.wav, That's good
+What_is_that.wav, What is that
+You_are_welcome.wav, You are welcome

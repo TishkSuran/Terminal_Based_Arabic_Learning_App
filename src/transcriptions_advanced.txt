@@ -1,0 +1,10 @@
+What_do_you_recommend_.wav, What do you recommend
+Can_I_take_a_photo.wav, Can I take a photo
+Where_are_you_from.wav, Where are you from
+I_can_speak_a_little_bit_of_Arabic.wav, I can speak a little bit of Arabic
+Can_you_recommend_a_good_restaurant_nearby.wav, Can you recommend a good restaurant nearby
+Can_you_give_me_a_discount.wav, Can you give me a discount
+Pigeon's_meat_is_legal_and_donkey's_meat_is_forbidden.wav, Pigeon's meat is legal and donkey's meat is forbidden
+Can_I_get_Internet_access_here.wav, Can I get internet access here
+The_check_please.wav, The check please
+What_does_..._mean.wav, What does ... mean
