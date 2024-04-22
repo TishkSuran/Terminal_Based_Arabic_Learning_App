@@ -5,9 +5,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Login_System {
-    private static final String CSV_FILE = "userInfo.csv";
+    public static final String CSV_FILE = "userInfo.csv";
     public static int experiencePoints;
     public static String email;
+//    public static String proficiency;
 
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
@@ -72,6 +73,7 @@ public class Login_System {
         }
 
         String userName = "";
+        String proficiency = "";
         while (userName.isEmpty()) {
             System.out.println("Enter your username: ");
             userName = scanner.nextLine();
@@ -83,7 +85,7 @@ public class Login_System {
             }
         }
 
-        String proficiency = "";
+
         while (proficiency.isEmpty()) {
             System.out.println("Enter your Arabic proficiency level (Beginner (B) | Intermediate (I) | Advanced (A)): ");
             proficiency = scanner.nextLine().toLowerCase(Locale.ROOT);
@@ -164,6 +166,29 @@ public class Login_System {
     }
 
 
+
+    public static void updateUserProficiency(String email, String newProficiency) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(CSV_FILE))){
+            String line;
+            StringBuilder fileContent = new StringBuilder();
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 7 && (parts[0].equals(email) || parts[5].equals(email))) {
+                    parts[4] = newProficiency;
+                    line = String.join(",", parts);
+                }
+                fileContent.append(line).append("\n");
+            }
+
+            try (FileWriter writer = new FileWriter(CSV_FILE)) {
+                writer.write(fileContent.toString());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     private static void loginUser(Scanner scanner) throws FileNotFoundException {
         System.out.println("Enter your email or username: ");
         email = scanner.nextLine();
@@ -184,62 +209,34 @@ public class Login_System {
 
                     while (true) {
                         if (proficiency.equals("Beginner")) {
-                            System.out.println();
-                            System.out.println("Welcome to Arabic for Beginners");
-                            System.out.println("1. Arabic Listening Practice Test");
-                            System.out.println("2. Arabic Listening Practice Flashcards");
-                            System.out.println("4. Exit Arabic for Beginners");
-                            int userInput = scanner.nextInt();
+                            Beginner_Screen beginnerScreen = new Beginner_Screen();
+                            beginnerScreen.BeginnerScreen();
 
-                            if (userInput == 1) {
-                                Arabic_Listening_Test_Beginner arabicListeningTestBeginner = new Arabic_Listening_Test_Beginner();
-                                arabicListeningTestBeginner.startListeningPractice();
-                            } else if (userInput == 2) {
-                                Arabic_Flashcards_Beginner beginnerFlashcards = new Arabic_Flashcards_Beginner();
-                                beginnerFlashcards.startFlashCardPractice();
-                            } else if (userInput == 4) {
-                                System.out.println("Exiting...");
-                                System.exit(0);
-                            }
+//                            System.out.println();
+//                            System.out.println("Welcome to Arabic for Beginners");
+//                            System.out.println("1. Arabic Listening Practice Test");
+//                            System.out.println("2. Arabic Listening Practice Flashcards");
+//                            System.out.println("4. Exit Arabic for Beginners");
+//                            int userInput = scanner.nextInt();
+//
+//                            if (userInput == 1) {
+//                                Arabic_Listening_Test_Beginner arabicListeningTestBeginner = new Arabic_Listening_Test_Beginner();
+//                                arabicListeningTestBeginner.startListeningPractice();
+//                            } else if (userInput == 2) {
+//                                Arabic_Flashcards_Beginner beginnerFlashcards = new Arabic_Flashcards_Beginner();
+//                                beginnerFlashcards.startFlashCardPractice();
+//                            } else if (userInput == 4) {
+//                                System.out.println("Exiting...");
+//                                System.exit(0);
+//                            }
                         }
-
                         else if (proficiency.equals("Intermediate")) {
-                            System.out.println();
-                            System.out.println("Welcome to Arabic for Intermediates");
-                            System.out.println("1. Arabic Listening Practice Test");
-                            System.out.println("2. Arabic Listening Practice Flashcards");
-                            System.out.println("4. Exit Arabic for Beginners");
-                            int userInput = scanner.nextInt();
+                            Intermediate_Screen intermediateScreen = new Intermediate_Screen();
+                            intermediateScreen.IntermediateScreen();
 
-                            if (userInput == 1) {
-
-                                Arabic_Listening_Test_Intermediate arabicListeningTestIntermediate = new Arabic_Listening_Test_Intermediate();
-                                arabicListeningTestIntermediate.startListeningPractice();
-                            } else if (userInput == 2) {
-                                Arabic_Flashcards_Intermediate arabicFlashcardsIntermediate = new Arabic_Flashcards_Intermediate();
-                                arabicFlashcardsIntermediate.startFlashCardPractice();
-                            } else if (userInput == 4) {
-                                System.out.println("Exiting...");
-                                System.exit(0);
-                            }
                         } else if (proficiency.equals("Advanced")) {
-                            System.out.println();
-                            System.out.println("Welcome to Arabic for Advanced Students");
-                            System.out.println("1. Arabic Listening Practice Test");
-                            System.out.println("2. Arabic Listening Practice Flashcards");
-                            System.out.println("4. Exit Arabic for Beginners");
-                            int userInput = scanner.nextInt();
-
-                            if (userInput == 1) {
-                                Arabic_Listening_Test_Advanced arabicListeningTestAdvanced = new Arabic_Listening_Test_Advanced();
-                                arabicListeningTestAdvanced.startListeningPractice();
-                            } else if (userInput == 2) {
-                                Arabic_Flashcards_Advanced arabicFlashcardsAdvanced = new Arabic_Flashcards_Advanced();
-                                arabicFlashcardsAdvanced.startFlashCardPractice();
-                            } else if (userInput == 4) {
-                                System.out.println("Exiting...");
-                                System.exit(0);
-                            }
+                            Advanced_Screen advancedScreen = new Advanced_Screen();
+                            advancedScreen.AdvancedScreen();
                         }
                     }
                     //return;

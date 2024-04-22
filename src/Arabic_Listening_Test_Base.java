@@ -72,6 +72,7 @@ public class Arabic_Listening_Test_Base {
 
     protected void displayResults(int correctAnswerCount) {
         int experiencePoints = Login_System.experiencePoints;
+//        String proficiency = Login_System.proficiency;
         String email = Login_System.email;
         if (correctAnswerCount == audioFiles.length) {
             System.out.println("Well done! You've achieved a flawless score, earning you 50 experience points.");
