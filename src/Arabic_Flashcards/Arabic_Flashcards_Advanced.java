@@ -1,3 +1,5 @@
+package Arabic_Flashcards;
+
 public class Arabic_Flashcards_Advanced extends Arabic_Flashcards_Base {
     public Arabic_Flashcards_Advanced() {
         super(new String[] {"What_do_you_recommend_.wav", "Can_I_take_a_photo.wav", "Where_are_you_from.wav", "I_can_speak_a_little_bit_of_Arabic.wav", "Can_you_recommend_a_good_restaurant_nearby.wav", "Can_you_give_me_a_discount.wav", "Pigeon's_meat_is_legal_and_donkey's_meat_is_forbidden.wav", "Can_I_get_Internet_access_here.wav", "The_check_please.wav", "What_does_..._mean.wav"},

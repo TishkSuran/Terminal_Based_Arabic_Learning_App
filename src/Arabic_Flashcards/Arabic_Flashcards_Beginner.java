@@ -1,3 +1,5 @@
+package Arabic_Flashcards;
+
 public class Arabic_Flashcards_Beginner extends Arabic_Flashcards_Base {
     public Arabic_Flashcards_Beginner() {
         super(new String[]{"Thank_you.wav", "Goodbye.wav", "Please.wav", "Busy.wav", "Delicious.wav", "Famous.wav", "Happy.wav", "Pretty.wav", "Water.wav", "Yes.wav"},

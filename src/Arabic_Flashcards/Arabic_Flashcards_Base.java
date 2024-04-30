@@ -1,3 +1,8 @@
+package Arabic_Flashcards;
+
+import Login_System_And_Difficulty_Screens.Login_System;
+import Audio_Method_And_Transcription_Files.Play_Audio;
+
 import java.io.File;
 import java.util.Scanner;
 

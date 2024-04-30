@@ -1,3 +1,8 @@
+package Arabic_Listening_Tests;
+
+import Login_System_And_Difficulty_Screens.*;
+import Audio_Method_And_Transcription_Files.Play_Audio;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
@@ -72,7 +77,7 @@ public class Arabic_Listening_Test_Base {
 
     protected void displayResults(int correctAnswerCount) {
         int experiencePoints = Login_System.experiencePoints;
-//        String proficiency = Login_System.proficiency;
+//        String proficiency = Login_System.Login_System.proficiency;
         String email = Login_System.email;
         if (correctAnswerCount == audioFiles.length) {
             System.out.println("Well done! You've achieved a flawless score, earning you 50 experience points.");

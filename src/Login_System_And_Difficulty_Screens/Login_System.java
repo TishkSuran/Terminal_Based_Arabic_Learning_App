@@ -1,3 +1,5 @@
+package Login_System_And_Difficulty_Screens;
+
 import java.io.*;
 import java.util.Locale;
 import java.util.Scanner;
@@ -8,46 +10,8 @@ public class Login_System {
     public static final String CSV_FILE = "userInfo.csv";
     public static int experiencePoints;
     public static String email;
-//    public static String proficiency;
 
-    public static void main(String[] args) throws IOException {
-        Scanner scanner = new Scanner(System.in);
-
-        while (true) {
-            System.out.println("╔═══════════════════════╗");
-            System.out.println("║  Arabic Learning Hub  ║");
-            System.out.println("╚═══════════════════════╝");
-            System.out.println();
-            System.out.println("Welcome to the Arabic Learning Hub. Please choose an option:");
-            System.out.println();
-            System.out.println("1. Register - Create a new account.");
-            System.out.println("2. Login - Access your account.");
-            System.out.println("3. Exit - Close the application.");
-            System.out.println();
-            System.out.print("Enter the number of your choice: ");
-            System.out.println();
-
-            int choice = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (choice) {
-                case 1:
-                    registerUser(scanner);
-                    break;
-                case 2:
-                    loginUser(scanner);
-                    break;
-                case 3:
-                    System.out.println("Exiting...");
-                    System.exit(0);
-                    break;
-                default:
-                    System.out.println("Invalid option. Please try again.");
-            }
-        }
-    }
-
-    private static void registerUser(Scanner scanner) throws IOException {
+    public static void registerUser(Scanner scanner) throws IOException {
         String firstName = "";
         while (firstName.isEmpty()) {
             System.out.println("Enter your first name: ");
@@ -56,7 +20,7 @@ public class Login_System {
                 System.out.println("This field cannot be left blank.");
             } else if (!isValidFirstName(firstName)) {
                 System.out.println("Invalid first name, first name can only contain letters.");
-                firstName = ""; // Resetting the value to force re-entry
+                firstName = "";
             }
         }
 
@@ -189,7 +153,7 @@ public class Login_System {
     }
 
 
-    private static void loginUser(Scanner scanner) throws FileNotFoundException {
+    public static void loginUser(Scanner scanner) throws FileNotFoundException {
         System.out.println("Enter your email or username: ");
         email = scanner.nextLine();
         System.out.println("Enter your password: ");
@@ -220,10 +184,10 @@ public class Login_System {
 //                            int userInput = scanner.nextInt();
 //
 //                            if (userInput == 1) {
-//                                Arabic_Listening_Test_Beginner arabicListeningTestBeginner = new Arabic_Listening_Test_Beginner();
+//                                Arabic_Listening_Tests.Arabic_Listening_Test_Beginner arabicListeningTestBeginner = new Arabic_Listening_Tests.Arabic_Listening_Test_Beginner();
 //                                arabicListeningTestBeginner.startListeningPractice();
 //                            } else if (userInput == 2) {
-//                                Arabic_Flashcards_Beginner beginnerFlashcards = new Arabic_Flashcards_Beginner();
+//                                Arabic_Flashcards.Arabic_Flashcards_Beginner beginnerFlashcards = new Arabic_Flashcards.Arabic_Flashcards_Beginner();
 //                                beginnerFlashcards.startFlashCardPractice();
 //                            } else if (userInput == 4) {
 //                                System.out.println("Exiting...");
@@ -253,29 +217,29 @@ public class Login_System {
     public static final Pattern VALID_NAME_REGEX =
             Pattern.compile("^[a-zA-Z]*$", Pattern.CASE_INSENSITIVE);
 
-    private static boolean isValidFirstName(String firstName) {
+    public static boolean isValidFirstName(String firstName) {
         Matcher matcher = VALID_NAME_REGEX.matcher(firstName);
         return matcher.matches();
     }
 
-    private static boolean isValidSecondName(String secondName) {
+    public static boolean isValidSecondName(String secondName) {
         Matcher matcher = VALID_NAME_REGEX.matcher(secondName);
         return matcher.matches();
     }
 
-    private static boolean isValidPassword(String password) {
+    public static boolean isValidPassword(String password) {
         return password.length() >= 8 && password.matches(".*\\d.*") && password.matches(".*[A-Z].*") && password.matches(".*[a-z].*");
     }
 
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
-    private static boolean isValidEmail(String email) {
+    public static boolean isValidEmail(String email) {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
         return matcher.matches();
     }
 
-    private static boolean isEmailAlreadyRegistered(String email) throws IOException {
+    public static boolean isEmailAlreadyRegistered(String email) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(CSV_FILE))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -288,7 +252,7 @@ public class Login_System {
         return false;
     }
 
-    private static boolean isUsernameAlreadyRegistered(String username) throws IOException {
+    public static boolean isUsernameAlreadyRegistered(String username) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(CSV_FILE))) {
             String line;
             while ((line = reader.readLine()) != null) {
