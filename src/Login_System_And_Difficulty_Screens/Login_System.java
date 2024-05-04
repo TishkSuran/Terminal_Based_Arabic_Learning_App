@@ -7,12 +7,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Login_System {
+    // CSV file path
     public static final String CSV_FILE = "userInfo.csv";
+    // User's experience points
     public static int experiencePoints;
+    // User's email
     public static String email;
 
+    // Method to register a new user
     public static void registerUser(Scanner scanner) throws IOException {
         String firstName = "";
+        // Validating first name
         while (firstName.isEmpty()) {
             System.out.println("Enter your first name: ");
             firstName = scanner.nextLine();
@@ -24,6 +29,7 @@ public class Login_System {
             }
         }
 
+        // Validating second name
         String secondName = "";
         while (secondName.isEmpty()) {
             System.out.println("Enter your second name: ");
@@ -38,6 +44,7 @@ public class Login_System {
 
         String userName = "";
         String proficiency = "";
+        // Validating username
         while (userName.isEmpty()) {
             System.out.println("Enter your username: ");
             userName = scanner.nextLine();
@@ -49,7 +56,7 @@ public class Login_System {
             }
         }
 
-
+        // Validating proficiency level
         while (proficiency.isEmpty()) {
             System.out.println("Enter your Arabic proficiency level (Beginner (B) | Intermediate (I) | Advanced (A)): ");
             proficiency = scanner.nextLine().toLowerCase(Locale.ROOT);
@@ -69,6 +76,7 @@ public class Login_System {
             }
         }
 
+        // Validating email
         email = "";
         while (email.isEmpty() || !isValidEmail(email) || isEmailAlreadyRegistered(email)) {
             System.out.println("Enter your email address: ");
@@ -82,6 +90,7 @@ public class Login_System {
             }
         }
 
+        // Validating password
         String password = "";
         while (password.isEmpty() || !isValidPassword(password)) {
             System.out.println("Please create a password: ");
@@ -93,19 +102,22 @@ public class Login_System {
             }
         }
 
+        // Initial experience points set to 0 for all users
         int experiencePoints = 0;
 
+        // Writing user information to CSV file
         try (PrintWriter writer = new PrintWriter(new FileWriter(CSV_FILE, true))) {
             writer.println(email + "," + password + "," + firstName + "," + secondName + "," + proficiency + "," + userName + "," + experiencePoints);
             System.out.println("User registered successfully.");
 
-
+            // Setting the registered email
             Login_System.email = email;
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
 
+    // Method to update experience points for a user
     public static void updateExperiencePoints(String email, int newXP) {
         try (BufferedReader reader = new BufferedReader(new FileReader(CSV_FILE))) {
             String line;
@@ -113,7 +125,7 @@ public class Login_System {
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length == 7 && (parts[0].equals(email) || parts[5].equals(email))) {
-                    int currentXP = Integer.parseInt(parts[6]); // Assuming XP is at index 6
+                    int currentXP = Integer.parseInt(parts[6]);
                     currentXP += newXP;
                     parts[6] = String.valueOf(currentXP);
                     line = String.join(",", parts);
@@ -125,12 +137,11 @@ public class Login_System {
                 writer.write(fileContent.toString());
             }
         } catch (IOException e) {
-            e.printStackTrace(); // Handle the exception according to your application's logic
+            e.printStackTrace();
         }
     }
 
-
-
+    // Method to update user's proficiency level
     public static void updateUserProficiency(String email, String newProficiency) {
         try (BufferedReader reader = new BufferedReader(new FileReader(CSV_FILE))){
             String line;
@@ -152,7 +163,7 @@ public class Login_System {
         }
     }
 
-
+    // Method to log in a user
     public static void loginUser(Scanner scanner) throws FileNotFoundException {
         System.out.println("Enter your email or username: ");
         email = scanner.nextLine();
@@ -169,41 +180,25 @@ public class Login_System {
                     int experiencePoints = Integer.parseInt(parts[6]);
                     System.out.println("Welcome, " + firstName + "! Your Arabic proficiency level is currently set to: " + proficiency + ", and your current XP is: " + experiencePoints + ".");
 
+                    // Setting experience points for the logged-in user
                     Login_System.experiencePoints = experiencePoints;
 
+                    // Infinite loop to handle user options based on proficiency level
                     while (true) {
                         if (proficiency.equals("Beginner")) {
                             Beginner_Screen beginnerScreen = new Beginner_Screen();
                             beginnerScreen.BeginnerScreen();
 
-//                            System.out.println();
-//                            System.out.println("Welcome to Arabic for Beginners");
-//                            System.out.println("1. Arabic Listening Practice Test");
-//                            System.out.println("2. Arabic Listening Practice Flashcards");
-//                            System.out.println("4. Exit Arabic for Beginners");
-//                            int userInput = scanner.nextInt();
-//
-//                            if (userInput == 1) {
-//                                Arabic_Listening_Tests.Arabic_Listening_Test_Beginner arabicListeningTestBeginner = new Arabic_Listening_Tests.Arabic_Listening_Test_Beginner();
-//                                arabicListeningTestBeginner.startListeningPractice();
-//                            } else if (userInput == 2) {
-//                                Arabic_Flashcards.Arabic_Flashcards_Beginner beginnerFlashcards = new Arabic_Flashcards.Arabic_Flashcards_Beginner();
-//                                beginnerFlashcards.startFlashCardPractice();
-//                            } else if (userInput == 4) {
-//                                System.out.println("Exiting...");
-//                                System.exit(0);
-//                            }
-                        }
-                        else if (proficiency.equals("Intermediate")) {
+                        } else if (proficiency.equals("Intermediate")) {
                             Intermediate_Screen intermediateScreen = new Intermediate_Screen();
                             intermediateScreen.IntermediateScreen();
 
                         } else if (proficiency.equals("Advanced")) {
                             Advanced_Screen advancedScreen = new Advanced_Screen();
                             advancedScreen.AdvancedScreen();
+
                         }
                     }
-                    //return;
                 }
             }
             System.out.println("Invalid email or password.");
@@ -212,33 +207,36 @@ public class Login_System {
         }
     }
 
+    // Regular expression pattern for validating name
+    public static final Pattern VALID_NAME_REGEX = Pattern.compile("^[a-zA-Z]*$", Pattern.CASE_INSENSITIVE);
 
-
-    public static final Pattern VALID_NAME_REGEX =
-            Pattern.compile("^[a-zA-Z]*$", Pattern.CASE_INSENSITIVE);
-
+    // Method to validate first name
     public static boolean isValidFirstName(String firstName) {
         Matcher matcher = VALID_NAME_REGEX.matcher(firstName);
         return matcher.matches();
     }
 
+    // Method to validate second name
     public static boolean isValidSecondName(String secondName) {
         Matcher matcher = VALID_NAME_REGEX.matcher(secondName);
         return matcher.matches();
     }
 
+    // Method to validate password
     public static boolean isValidPassword(String password) {
         return password.length() >= 8 && password.matches(".*\\d.*") && password.matches(".*[A-Z].*") && password.matches(".*[a-z].*");
     }
 
-    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
-            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+    // Regular expression pattern for validating email
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
+    // Method to validate email
     public static boolean isValidEmail(String email) {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
         return matcher.matches();
     }
 
+    // Method to check if email is already registered
     public static boolean isEmailAlreadyRegistered(String email) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(CSV_FILE))) {
             String line;
@@ -252,6 +250,7 @@ public class Login_System {
         return false;
     }
 
+    // Method to check if username is already registered
     public static boolean isUsernameAlreadyRegistered(String username) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(CSV_FILE))) {
             String line;

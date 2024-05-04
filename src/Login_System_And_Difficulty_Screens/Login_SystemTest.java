@@ -54,7 +54,6 @@ public class Login_SystemTest {
         assertTrue(ValidationUtils.isUsernameAlreadyRegistered("existingUser"));
     }
 
-    // Helper method to generate a random email
     private String generateRandomEmail() {
         String[] domains = {"example.com", "test.com", "gmail.com", "yahoo.com"};
         String[] usernames = {"ibnsina", "alghazali", "avempace", "ibnalhaytham"};
