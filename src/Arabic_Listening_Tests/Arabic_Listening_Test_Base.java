@@ -10,20 +10,26 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class Arabic_Listening_Test_Base {
+    // Array to store audio file names
     protected String[] audioFiles;
+    // Directory containing audio files
     protected String audioDirectory;
+    // File containing transcriptions
     protected String transcriptionFile;
 
+    // Constructor to initialise listening test data
     public Arabic_Listening_Test_Base(String[] audioFiles, String audioDirectory, String transcriptionFile) {
         this.audioFiles = audioFiles;
         this.audioDirectory = audioDirectory;
         this.transcriptionFile = transcriptionFile;
     }
 
+    // Method to start listening practice
     public void startListeningPractice() {
         System.out.println("Welcome to Listening Practice!");
         Scanner scanner = new Scanner(System.in);
 
+        // Shuffle the audio files to randomise order
         Collections.shuffle(Arrays.asList(audioFiles));
         int currentIndex = 0;
         int correctAnswerCount = 0;
@@ -31,6 +37,7 @@ public class Arabic_Listening_Test_Base {
         while (true) {
             String randomAudioFile = audioFiles[currentIndex];
 
+            // Play the audio
             Play_Audio.playAudio(audioDirectory + File.separator + randomAudioFile);
 
             System.out.println("Please transcribe what you heard:");
@@ -55,6 +62,7 @@ public class Arabic_Listening_Test_Base {
         }
     }
 
+    // Method to retrieve correct transcription from file
     protected String getCorrectTranscription(String audioFileName) {
         try {
             File file = new File(transcriptionFile);
@@ -75,9 +83,9 @@ public class Arabic_Listening_Test_Base {
         }
     }
 
+    // Method to display test results and update experience points
     protected void displayResults(int correctAnswerCount) {
         int experiencePoints = Login_System.experiencePoints;
-//        String proficiency = Login_System.Login_System.proficiency;
         String email = Login_System.email;
         if (correctAnswerCount == audioFiles.length) {
             System.out.println("Well done! You've achieved a flawless score, earning you 50 experience points.");
@@ -92,5 +100,4 @@ public class Arabic_Listening_Test_Base {
         System.out.println();
     }
 }
-
 
