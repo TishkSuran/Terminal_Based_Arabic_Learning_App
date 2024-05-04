@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class Arabic_Listening_Test_Base {
     // Array to store audio file names
-    protected String[] audioFiles;
+    public String[] audioFiles;
     // Directory containing audio files
     protected String audioDirectory;
     // File containing transcriptions
@@ -63,7 +63,7 @@ public class Arabic_Listening_Test_Base {
     }
 
     // Method to retrieve correct transcription from file
-    protected String getCorrectTranscription(String audioFileName) {
+    public String getCorrectTranscription(String audioFileName) {
         try {
             File file = new File(transcriptionFile);
             Scanner scanner = new Scanner(file);
