@@ -1,10 +1,13 @@
 package Login_System_And_Difficulty_Screens;
 
 import java.io.*;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 public class Login_System {
     // CSV file path
@@ -13,6 +16,7 @@ public class Login_System {
     public static int experiencePoints;
     // User's email
     public static String email;
+
 
     // Method to register a new user
     public static void registerUser(Scanner scanner) throws IOException {
@@ -102,12 +106,15 @@ public class Login_System {
             }
         }
 
+        // Hashing the password before saving
+        String hashedPassword = hashPassword(password);
+
         // Initial experience points set to 0 for all users
         int experiencePoints = 0;
 
         // Writing user information to CSV file
         try (PrintWriter writer = new PrintWriter(new FileWriter(CSV_FILE, true))) {
-            writer.println(email + "," + password + "," + firstName + "," + secondName + "," + proficiency + "," + userName + "," + experiencePoints);
+            writer.println(email + "," + hashedPassword + "," + firstName + "," + secondName + "," + proficiency + "," + userName + "," + experiencePoints);
             System.out.println("User registered successfully.");
 
             // Setting the registered email
@@ -164,47 +171,59 @@ public class Login_System {
     }
 
     // Method to log in a user
-    public static void loginUser(Scanner scanner) throws FileNotFoundException {
+    public static void loginUser(Scanner scanner) throws IOException {
         System.out.println("Enter your email or username: ");
-        email = scanner.nextLine();
+        String userInput = scanner.nextLine();
         System.out.println("Enter your password: ");
         String password = scanner.nextLine();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(CSV_FILE))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts.length == 7 && (parts[0].equals(email) || parts[5].equals(email)) && parts[1].equals(password)) {
-                    String firstName = parts[2];
-                    String proficiency = parts[4];
-                    int experiencePoints = Integer.parseInt(parts[6]);
-                    System.out.println("Welcome, " + firstName + "! Your Arabic proficiency level is currently set to: " + proficiency + ", and your current XP is: " + experiencePoints + ".");
+            // Using Streams API to process lines of the CSV file
+            Stream<String> lines = reader.lines();
 
-                    // Setting experience points for the logged-in user
-                    Login_System.experiencePoints = experiencePoints;
+            // Filtering lines based on email or username
+            lines.filter(line -> {
+                        String[] parts = line.split(",");
+                        return parts.length == 7 && (parts[0].equals(userInput) || parts[5].equals(userInput));
+                    }).findFirst() // Find the first matching line
+                    .ifPresentOrElse(line -> {
+                        String[] parts = line.split(",");
+                        String storedHashedPassword = parts[1];
+                        if (checkPassword(password, storedHashedPassword)) {
+                            String firstName = parts[2];
+                            String proficiency = parts[4];
+                            int experiencePoints = Integer.parseInt(parts[6]);
+                            System.out.println("Welcome, " + firstName + "! Your Arabic proficiency level is currently set to: " + proficiency + ", and your current XP is: " + experiencePoints + ".");
+                            Login_System.experiencePoints = experiencePoints;
 
-                    // Infinite loop to handle user options based on proficiency level
-                    while (true) {
-                        if (proficiency.equals("Beginner")) {
-                            Beginner_Screen beginnerScreen = new Beginner_Screen();
-                            beginnerScreen.BeginnerScreen();
-
-                        } else if (proficiency.equals("Intermediate")) {
-                            Intermediate_Screen intermediateScreen = new Intermediate_Screen();
-                            intermediateScreen.IntermediateScreen();
-
-                        } else if (proficiency.equals("Advanced")) {
-                            Advanced_Screen advancedScreen = new Advanced_Screen();
-                            advancedScreen.AdvancedScreen();
-
+                            // Infinite loop to handle user options based on proficiency level
+                            while (true) {
+                                switch (proficiency) {
+                                    case "Beginner":
+                                        Beginner_Screen.BeginnerScreen();
+                                        break;
+                                    case "Intermediate":
+                                        Intermediate_Screen.IntermediateScreen();
+                                        break;
+                                    case "Advanced":
+                                        Advanced_Screen.AdvancedScreen();
+                                        break;
+                                }
+                            }
+                        } else {
+                            System.out.println("Invalid password.");
                         }
-                    }
-                }
-            }
-            System.out.println("Invalid email or password.");
+                    }, () -> System.out.println("Invalid email or username."));
+
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
         }
+    }
+
+
+    // Method to check if the provided password matches the hashed password
+    public static boolean checkPassword(String password, String hashedPassword) {
+        return hashPassword(password).equals(hashedPassword);
     }
 
     // Regular expression pattern for validating name
@@ -262,5 +281,21 @@ public class Login_System {
             }
         }
         return false;
+    }
+
+    // Method to hash a password using SHA-256 algorithm
+    public static String hashPassword(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hashBytes = md.digest(password.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for (byte b : hashBytes) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
