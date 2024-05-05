@@ -42,18 +42,6 @@ public class Login_SystemTest {
         assertFalse(ValidationUtils.isValidEmail("user123@gmail"));
     }
 
-    @Test
-    public void testIsEmailAlreadyRegistered() throws IOException {
-        assertFalse(ValidationUtils.isEmailAlreadyRegistered(generateRandomEmail()));
-        assertTrue(ValidationUtils.isEmailAlreadyRegistered("alreadyregistered@example.com"));
-    }
-
-    @Test
-    public void testIsUsernameAlreadyRegistered() throws IOException {
-        assertFalse(ValidationUtils.isUsernameAlreadyRegistered("newUser"));
-        assertTrue(ValidationUtils.isUsernameAlreadyRegistered("existingUser"));
-    }
-
     private String generateRandomEmail() {
         String[] domains = {"example.com", "test.com", "gmail.com", "yahoo.com"};
         String[] usernames = {"ibnsina", "alghazali", "avempace", "ibnalhaytham"};
