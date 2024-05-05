@@ -12,7 +12,7 @@ public class Intermediate_Screen {
         System.out.println("Welcome to Arabic for Intermediates");
         System.out.println("1. Arabic Listening Practice Flashcards");
         System.out.println("2. Arabic Listening Practice Test");
-        System.out.println("3. To View Login_System.Leaderboard");
+        System.out.println("3. To View the Leaderboard");
         System.out.println("4. Exit Arabic for Beginners");
 
         int userInput = scanner.nextInt();

@@ -1,9 +1,10 @@
-package Arabic_Listening_Tests;
+package Arabic_Listening_Tests.Arabic_Listening_Tests_JUnit_Tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertFalse;
 
+import Arabic_Listening_Tests.Arabic_Listening_Test_Base;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,7 +15,7 @@ public class Arabic_Listening_Test_Intermediate_JUnits{
     @Before
     public void setUp() {
         String[] audioFiles = {"Favourite.wav", "Good_morning.wav", "I_love_you.wav", "Interesting.wav", "No_problem.wav", "Of_course.wav", "Thank_you_very_much.wav", "Thats_good.wav", "What_is_that.wav", "You_are_welcome.wav"};
-        testIntermediate = new Arabic_Listening_Test_Base(audioFiles, "src/Arabic_Words_Intermediate", "src/Audio_Method_And_Transcription_Files/transcriptions_intermediate.txt");
+        testIntermediate = new Arabic_Listening_Test_Base(audioFiles, "src/Arabic_Words.Arabic_Words_Intermediate", "src/Audio_Method_And_Transcription_Files/transcriptions_intermediate.txt");
     }
 
     @Test
