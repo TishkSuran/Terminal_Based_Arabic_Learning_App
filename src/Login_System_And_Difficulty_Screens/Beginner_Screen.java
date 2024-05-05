@@ -24,8 +24,7 @@ public class Beginner_Screen {
             Arabic_Listening_Test_Beginner arabicListeningTestBeginner = new Arabic_Listening_Test_Beginner();
             arabicListeningTestBeginner.startListeningPractice();
         } else if (userInput == 3) {
-            Leaderboard leaderboard = new Leaderboard();
-            leaderboard.Leaderboard();
+            Leaderboard.Leaderboard();
         }
         else if (userInput == 4) {
             System.out.println("Exiting...");

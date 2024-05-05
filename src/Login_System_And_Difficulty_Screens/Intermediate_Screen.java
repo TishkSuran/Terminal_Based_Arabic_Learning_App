@@ -23,8 +23,7 @@ public class Intermediate_Screen {
             Arabic_Listening_Test_Intermediate arabicListeningTestIntermediate = new Arabic_Listening_Test_Intermediate();
             arabicListeningTestIntermediate.startListeningPractice();
         } else if (userInput == 3) {
-            Leaderboard leaderboard = new Leaderboard();
-            leaderboard.Leaderboard();
+            Leaderboard.Leaderboard();
         }
         else if (userInput == 4) {
             System.out.println("Exiting...");

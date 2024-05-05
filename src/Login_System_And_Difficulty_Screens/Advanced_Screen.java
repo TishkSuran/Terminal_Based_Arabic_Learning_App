@@ -13,6 +13,7 @@ public class Advanced_Screen {
         System.out.println("2. Arabic Listening Practice Test");
         System.out.println("3. To View the Leaderboard");
         System.out.println("4. Exit Arabic for Beginners");
+
         Scanner scanner = new Scanner(System.in);
         int userInput = scanner.nextInt();
 
@@ -23,8 +24,7 @@ public class Advanced_Screen {
             Arabic_Listening_Test_Advanced arabicListeningTestAdvanced = new Arabic_Listening_Test_Advanced();
             arabicListeningTestAdvanced.startListeningPractice();
         } else if (userInput == 3) {
-            Leaderboard leaderboard = new Leaderboard();
-            leaderboard.Leaderboard();
+            Leaderboard.Leaderboard();
         } else if (userInput == 4) {
             System.out.println("Exiting...");
             System.exit(0);
