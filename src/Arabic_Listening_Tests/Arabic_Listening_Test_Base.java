@@ -37,7 +37,7 @@ public class Arabic_Listening_Test_Base {
         while (true) {
             String randomAudioFile = audioFiles[currentIndex];
 
-            // Play the audio
+            // Play the audio using personally made method
             Play_Audio.playAudio(audioDirectory + File.separator + randomAudioFile);
 
             System.out.println("Please transcribe what you heard:");

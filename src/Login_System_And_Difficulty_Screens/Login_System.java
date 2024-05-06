@@ -181,11 +181,10 @@ public class Login_System {
             // Using Streams API to process lines of the CSV file
             Stream<String> lines = reader.lines();
 
-            // Filtering lines based on email or username
             lines.filter(line -> {
                         String[] parts = line.split(",");
                         return parts.length == 7 && (parts[0].equals(userInput) || parts[5].equals(userInput));
-                    }).findFirst() // Find the first matching line
+                    }).findFirst()
                     .ifPresentOrElse(line -> {
                         String[] parts = line.split(",");
                         String storedHashedPassword = parts[1];

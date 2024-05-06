@@ -1,12 +1,10 @@
 package Arabic_Listening_Tests.Arabic_Listening_Tests_JUnit_Tests;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertFalse;
 
 import Arabic_Listening_Tests.Arabic_Listening_Test_Base;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class Arabic_Listening_Test_Intermediate_JUnits{
 
@@ -92,7 +90,7 @@ public class Arabic_Listening_Test_Intermediate_JUnits{
     public void testIncorrectTranscriptionReturnsFalse() {
         String incorrectTranscription = "Incorrect";
         String actual = testIntermediate.getCorrectTranscription("Favourite.wav");
-        assertFalse(incorrectTranscription.equals(actual));
+        assertNotEquals(incorrectTranscription, actual);
     }
 
     @Test

@@ -30,7 +30,7 @@ public abstract class Arabic_Flashcards_Base {
     // Method to start flashcard practice
     public void startFlashCardPractice() {
         Scanner scanner = new Scanner(System.in);
-        // Retrieve user's email
+        // Retrieve user's email which is later used to update XP
         String email = Login_System.email;
         System.out.println("Welcome to Arabic Word Learning");
         // Display flashcard options
