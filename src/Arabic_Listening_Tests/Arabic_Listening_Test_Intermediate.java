@@ -27,7 +27,10 @@ public class Arabic_Listening_Test_Intermediate extends Arabic_Listening_Test_Ba
         if (correctAnswerCount == audioFiles.length) {
             System.out.println("Congratulations, you have been promoted to Arabic level: Advanced.");
             Login_System.updateUserProficiency(email, "Advanced");
-            Advanced_Screen.AdvancedScreen();
+
+            while (true) {
+                Advanced_Screen.AdvancedScreen();
+            }
         }
     }
 }

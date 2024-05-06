@@ -28,7 +28,8 @@ public class Arabic_Listening_Test_Beginner extends Arabic_Listening_Test_Base {
         if (correctAnswerCount == audioFiles.length) {
             System.out.println("Congratulations, you have been promoted to Arabic level: Intermediate.");
             Login_System.updateUserProficiency(email, "Intermediate");
-            Intermediate_Screen.IntermediateScreen();
+            while (true) {
+            Intermediate_Screen.IntermediateScreen();}
         }
     }
 }
